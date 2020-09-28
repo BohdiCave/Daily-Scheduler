@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Work Day Scheduler</title>
+  </head>
+
+  <body>
+    <header class="jumbotron">
+      <h1 class="display-3">Daily Scheduler</h1>
+      <p class="lead">A simple calendar app for scheduling your day</p>
+      <p id="currentDay" class="lead"></p>
+    </header>
+    <div class="container"></div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script>
+
+      $(document).ready(function() {
+        // Declaration and assignment code
+        var hourSlots, timeSlots, row, col10, col1, col8, textarea, saveCol1, icon;
+        // current hour in 0-23 format
+        var currentHour = moment().hour();
+        var hours = [];
+
+        // loading current day and date
+        $("#currentDay").text(moment().format("dddd, MMMM Do, YYYY"));
+
+        // generating HTML - rows and columns (hour time slots, textareas, save buttons)
+        for (i = 0; i < 15; i++) {
+          row = $("<div>");
+          row.addClass("row");
+          row.addClass("time-block");
+          $(".container").append(row);
+          
+          col10 = $("<div>");
+          col10.addClass("col-sm-10");
+          row.append(col10);
+
+          col1 = $("<div>");
+          col1.addClass("col-sm-1");
+          col1.addClass("hour");
+          col10.append(col1);
+
+          col8 = $("<div>");
+          col8.addClass("col-sm-8");
+          col10.append(col8);
+
+          textarea = $("<textarea>");
+          textarea.addClass("description");
+          textarea.attr("rows", "1");
+          col8.append(textarea);
+
+          saveCol1 = $("<div>");
+          saveCol1.addClass("col-sm-1");
+          saveCol1.addClass("saveBtn");
+          col10.append(saveCol1);
+          icon = $("<i>");
+          icon.addClass("far");
+          icon.addClass("fa-save");
+          saveCol1.append(icon);
+        }
+
+        // getting some elements into arrays...
+        hourSlots = $(".hour");
+        timeSlots = $(".col-sm-8");
+        
+        // ...filling an array of display hours...
+        for (var h = 7; h < 22; h++) {  
+          var timeSlot = moment().hour(h).format("hA");
+          hours.push(timeSlot);
+        }
+        // ...and filling in the schedule time slots based on the array
+        for (j = 0; j < 15; j++) {
+          hourSlots[j].innerHTML = hours[j];
+        }
+
+        // making time comparisons to assign classes
+        for (var l = 7; l < 22; l++) {  
+          // each hour is parsed into a number 0-23
+          var newHour = parseInt(moment().hour(l).format("HH"));
+          // assigning .past/.present/.future classes 
+          if (currentHour > newHour) {
+            $(timeSlots[l-7]).addClass("past");
+          } else if (currentHour == newHour) {
+            $(timeSlots[l-7]).addClass("present");
+          } else if (currentHour < newHour) {
+            $(timeSlots[l-7]).addClass("future");
+          }
+        }
+
+        // list of tasks saved in local storage, if any
+        var itemList = JSON.parse(localStorage.getItem("Scheduled Items")) || "[]";
+      
+        // loading saved tasks into the schedule 
+        if (itemList !== "[]") {
+          for (m = 0; m < itemList.length; m++) {
+            for (n = 0; n < hourSlots.length; n++) {
+              if (itemList[m].Time === hourSlots[n].innerHTML) {
+                $(hourSlots[n]).parent(".col-sm-10").children(".col-sm-8").children(".description").val(itemList[m].Task);
+              }
+            }
+          }
+        }
+
+        //saving the input
+        $(".saveBtn").on("click", function() {
+          var getInput = $(this).parent(".col-sm-10").children(".col-sm-8").children(".description").val();
+          var thisHour = $(this).parent(".col-sm-10").children(".hour").text();
+          var schedItem = {Time: thisHour, Task: getInput};
+          itemList = localStorage.getItem("Scheduled Items") || "[]"; 
+          itemList = [...JSON.parse(itemList), schedItem];
+          localStorage.setItem("Scheduled Items", JSON.stringify(itemList)); 
+        });        
+        
+      });
+
+    </script>
+  </body>
+</html>
