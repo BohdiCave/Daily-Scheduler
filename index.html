@@ -24,17 +24,32 @@
 
   <body>
     <header class="jumbotron">
-      <h1 class="display-3">Daily Scheduler</h1>
-      <p class="lead">A simple calendar app for scheduling your day</p>
-      <p id="currentDay" class="lead"></p>
+      <div class="holder">
+        <h1 class="display-3">Daily Scheduler</h1>
+        <p class="lead">A simple calendar app for scheduling your day</p>
+        <p id="currentDay" class="lead"></p>
+      </div>
     </header>
-    <div class="container"></div>
+
+    <div class="container">
+
+    </div>
+
+    <footer>
+      <div class="footholder">
+        2020 ~ Made by <a class="copyright" href="https://github.com/BohdiCave" target="new">Bohdan Pechenyak</a>
+        <br><br> Print "<a href="https://en.wikipedia.org/wiki/Ship_of_fools" target="new">Narrendans</a> (Stultorum chorea)" (~1560-70) by <a href="https://en.wikipedia.org/wiki/Frans_Hogenberg" target="new">Frans Hogenberg</a>.
+        <br><br> Image source: <a href="https://www.rijksmuseum.nl/nl/collectie/RP-P-OB-3163" target="new">Rijksmuseum</a> 
+      </div>
+    </footer> 
+
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script>
 
       $(document).ready(function() {
+
         // Declaration and assignment code
         var hourSlots, timeSlots, row, col10, col1, col8, textarea, saveCol1, icon;
         // current hour in 0-23 format
@@ -48,21 +63,17 @@
         for (i = 0; i < 15; i++) {
           row = $("<div>");
           row.addClass("row");
-          row.addClass("time-block");
+          // row.addClass("time-block");
           $(".container").append(row);
           
-          col10 = $("<div>");
-          col10.addClass("col-sm-10");
-          row.append(col10);
-
           col1 = $("<div>");
           col1.addClass("col-sm-1");
           col1.addClass("hour");
-          col10.append(col1);
+          row.append(col1);
 
           col8 = $("<div>");
           col8.addClass("col-sm-8");
-          col10.append(col8);
+          row.append(col8);
 
           textarea = $("<textarea>");
           textarea.addClass("description");
@@ -72,12 +83,15 @@
           saveCol1 = $("<div>");
           saveCol1.addClass("col-sm-1");
           saveCol1.addClass("saveBtn");
-          col10.append(saveCol1);
+          row.append(saveCol1);
           icon = $("<i>");
           icon.addClass("far");
           icon.addClass("fa-save");
           saveCol1.append(icon);
         }
+        // adding a dashed bottom border on the last row
+        var hourLast = $(".hour").last();
+        hourLast.addClass(" hour-last"); 
 
         // getting some elements into arrays...
         hourSlots = $(".hour");

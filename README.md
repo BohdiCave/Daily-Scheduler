@@ -16,6 +16,16 @@ This application is a product of an exercise in handling jQuery API and other JS
 
 [Daily Scheduler](https://bohdicave.github.io/Daily-Scheduler/)
 
+## Credits
+
+The background image is a 16th century print that is in the public domain.
+
+Image source: [Rijksmuseum](https://www.rijksmuseum.nl/nl/collectie/RP-P-OB-3163)
+
+"[Narrendans](https://en.wikipedia.org/wiki/Ship_of_fools) (Stultorum chorea)" (dated 1560/70) by [Frans Hogenberg](https://en.wikipedia.org/wiki/Frans_Hogenberg).    
+
 ## Screenshots
 
-![Daily Scheduler](./daily-schedule.png)
+![Daily Scheduler, 1st](./daily-schedule.png)
+
+![Daily Scheduler, 2nd](./daily-schedule1.png)
