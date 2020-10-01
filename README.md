@@ -26,6 +26,6 @@ Image source: [Rijksmuseum](https://www.rijksmuseum.nl/nl/collectie/RP-P-OB-3163
 
 ## Screenshots
 
-![Daily Scheduler, 1st](./daily-schedule.png)
+![Daily Scheduler, 1st](./Assets/daily-schedule.png)
 
-![Daily Scheduler, 2nd](./daily-schedule1.png)
+![Daily Scheduler, 2nd](./Assets/daily-schedule1.png)
