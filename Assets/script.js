@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
   // Declaration and assignment code
-  var hourSlots, timeSlots, row, col10, col1, col8, textarea, saveCol1, icon;
+  var hourSlots, timeSlots, row, col1, col8, textarea, saveCol1, icon;
   // current hour in 0-23 format
   var currentHour = moment().hour();
   var hours = [];
